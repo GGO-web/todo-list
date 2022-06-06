@@ -1,0 +1,4 @@
+.completed {
+   text-decoration: line-through;
+   background-color: var(--bs-gray-200);
+}
