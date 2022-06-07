@@ -10,6 +10,11 @@ import CreateTodo from './components/CreateTodo/CreateTodo';
 import TodoList from './components/TodoList/TodoList';
 import GarbageTodos from './components/GarbageTodos/GarbageTodos';
 
+/**
+ * TODO:
+ * - Write unit test for individual components
+ */
+
 function App() {
 	const [todos, setTodos] = useState([]);
 	const [filteredTodos, setFilteredTodos] = useState([]);
