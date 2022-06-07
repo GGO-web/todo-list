@@ -3,10 +3,10 @@ import Todo from './components/Todo/Todo';
 
 import { v4 as uuidv4 } from 'uuid';
 
-const TodoList = ({ todos, setTodos }) => {
+const TodoList = ({ filteredTodos, setFilteredTodos, todos, setTodos }) => {
 	return (
 		<div className='todo-list list-group gx-2'>
-			{todos.map((item) => {
+			{filteredTodos.map((item) => {
 				return (
 					<Todo
 						key={uuidv4()}

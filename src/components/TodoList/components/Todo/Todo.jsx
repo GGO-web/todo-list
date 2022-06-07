@@ -4,23 +4,32 @@ import { Input, InputGroup, Button } from 'reactstrap';
 import './Todo.css';
 
 const Todo = ({ todos, setTodos, todo }) => {
-	const [todoItemValue, setTodoItemValue] = useState(todo);
+	const [todoItem, setTodoItem] = useState(todo);
 
 	const todoItemHandler = (e) => {
-		setTodoItemValue({ ...todoItemValue, value: e.target.value });
+		setTodoItem({ ...todoItem, value: e.target.value });
 	};
 
 	const todoItemValidate = () => {
-		if (todoItemValue === '') {
-			setTodoItemValue({ ...todoItemValue, value: todo.value });
-		} else todo.value = todoItemValue.value;
+		if (todoItem.value === '') {
+			setTodoItem({ ...todoItem, value: todo.value });
+		} else {
+			setTodos(
+				todos.map((item) => {
+					return item.id === todo.id
+						? { ...item, value: todoItem.value }
+						: item;
+				})
+			);
+
+			todo.value = todoItem.value;
+		}
 	};
 
 	const markTodoCompleted = () => {
 		setTodos(
 			todos.map((todo) => {
-				if (todo.id === todoItemValue.id) {
-					console.log(todo);
+				if (todo.id === todoItem.id) {
 					return { ...todo, completed: !todo.completed };
 				}
 
@@ -32,7 +41,7 @@ const Todo = ({ todos, setTodos, todo }) => {
 	const removeTodoItem = () => {
 		setTodos(
 			todos.filter((todo) => {
-				return todo.id !== todoItemValue.id;
+				return todo.id !== todoItem.id;
 			})
 		);
 	};
@@ -40,7 +49,7 @@ const Todo = ({ todos, setTodos, todo }) => {
 	return (
 		<InputGroup className='mb-3'>
 			<Input
-				value={todoItemValue.value}
+				value={todoItem.value}
 				onChange={todoItemHandler}
 				onBlur={todoItemValidate}
 				className={todo.completed ? 'completed' : ''}

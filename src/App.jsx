@@ -11,11 +11,13 @@ import TodoList from './components/TodoList/TodoList';
 
 /**
  * TODO:
+ * - Add filter for completed, uncompleted, all todos
  * - Add trash list for removed todos
  */
 
 function App() {
 	const [todos, setTodos] = useState([]);
+	const [filteredTodos, setFilteredTodos] = useState([]);
 
 	const saveTodosToLocalStorage = () => {
 		if (todos.length) localStorage.setItem(TODO_ITEMS, JSON.stringify(todos));
@@ -40,8 +42,10 @@ function App() {
 	return (
 		<div className='container'>
 			<Header></Header>
-			<CreateTodo {...{ todos, setTodos }}></CreateTodo>
-			<TodoList {...{ todos, setTodos }}></TodoList>
+			<CreateTodo
+				{...{ filteredTodos, setFilteredTodos, todos, setTodos }}
+			></CreateTodo>
+			<TodoList {...{ filteredTodos, todos, setTodos }}></TodoList>
 		</div>
 	);
 }

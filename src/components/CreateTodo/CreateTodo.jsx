@@ -13,7 +13,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 import './CreateTodo.css';
 
-const CreateTodo = ({ todos, setTodos }) => {
+import FilterTodo from './components/FilterTodo/FilterTodo';
+
+const CreateTodo = ({ filteredTodos, setFilteredTodos, todos, setTodos }) => {
 	const [todoInputValue, setTodoInputValue] = useState('');
 
 	const inputHandler = (e) => {
@@ -54,6 +56,11 @@ const CreateTodo = ({ todos, setTodos }) => {
 							></i>
 						</Button>
 					</InputGroup>
+				</Col>
+				<Col md='2'>
+					<FilterTodo
+						{...{ filteredTodos, setFilteredTodos, todos, setTodos }}
+					></FilterTodo>
 				</Col>
 			</FormGroup>
 		</Form>
