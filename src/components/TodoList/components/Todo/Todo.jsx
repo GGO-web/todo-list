@@ -3,7 +3,7 @@ import { Input, InputGroup, Button } from 'reactstrap';
 
 import './Todo.css';
 
-const Todo = ({ todos, setTodos, todo }) => {
+const Todo = ({ todos, setTodos, todo, garbageTodos, setGarbageTodos }) => {
 	const [todoItem, setTodoItem] = useState(todo);
 
 	const todoItemHandler = (e) => {
@@ -39,6 +39,8 @@ const Todo = ({ todos, setTodos, todo }) => {
 	};
 
 	const removeTodoItem = () => {
+		setGarbageTodos([...garbageTodos, todoItem]);
+
 		setTodos(
 			todos.filter((todo) => {
 				return todo.id !== todoItem.id;

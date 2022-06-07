@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Input } from 'reactstrap';
 
-const FilterTodo = ({ filteredTodos, setFilteredTodos, todos, setTodos }) => {
+const FilterTodo = ({ setFilteredTodos, todos }) => {
 	const [dropdownValue, setDropdownValue] = useState('all');
 
 	const filterTodoList = (e) => {
