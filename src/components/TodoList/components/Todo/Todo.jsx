@@ -3,6 +3,9 @@ import { Input, InputGroup, Button } from 'reactstrap';
 
 import './Todo.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTrash } from '@fortawesome/fontawesome-free-solid';
+
 const Todo = ({ todos, setTodos, todo, garbageTodos, setGarbageTodos }) => {
 	const [todoItem, setTodoItem] = useState(todo);
 
@@ -57,10 +60,12 @@ const Todo = ({ todos, setTodos, todo, garbageTodos, setGarbageTodos }) => {
 				className={todo.completed ? 'completed' : ''}
 			/>
 			<Button onClick={markTodoCompleted} color='primary'>
-				&#10003; Complete
+				<FontAwesomeIcon icon={faCheck} style={{ marginRight: '5px' }} />
+				Complete
 			</Button>
 			<Button color='danger' onClick={removeTodoItem}>
-				&#128465; Remove
+				<FontAwesomeIcon icon={faTrash} style={{ marginRight: '5px' }} />
+				Remove
 			</Button>
 		</InputGroup>
 	);

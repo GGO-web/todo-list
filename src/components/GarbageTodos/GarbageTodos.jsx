@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import GarbageTodo from './components/GarbageTodo/GarbageTodo';
 
 const GarbageTodos = ({ todos, setTodos, garbageTodos, setGarbageTodos }) => {
-	const [garbageIsOpen, setGarbageIsOpen] = useState(true);
+	const [garbageIsOpen, setGarbageIsOpen] = useState(false);
 
 	return (
 		<>

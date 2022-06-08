@@ -56,7 +56,8 @@ function App() {
 
 	useEffect(() => {
 		saveTodosToLocalStorage();
-	}, [todos]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [todos, garbageTodos]);
 
 	return (
 		<div className='container'>
