@@ -14,7 +14,7 @@ const TodoList = ({
 		<>
 			<h2 className='mt-5 mb-3'>Todo List</h2>
 
-			<div className='todo-list list-group gx-2'>
+			<div data-testid='todo-list' className='todo-list list-group gx-2'>
 				{filteredTodos.length
 					? filteredTodos.map((item) => {
 							return (

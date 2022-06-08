@@ -29,7 +29,12 @@ const FilterTodo = ({ setFilteredTodos, todos }) => {
 	}, [todos]);
 
 	return (
-		<Input type={'select'} size='1' onChange={filterTodoList}>
+		<Input
+			data-testid='filter-todo'
+			type={'select'}
+			size='1'
+			onChange={filterTodoList}
+		>
 			<option value={'all'}>All</option>
 			<option value={'completed'}>Completed</option>
 			<option value={'uncompleted'}>Uncompleted</option>

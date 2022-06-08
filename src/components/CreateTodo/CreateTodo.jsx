@@ -45,13 +45,14 @@ const CreateTodo = ({ filteredTodos, setFilteredTodos, todos, setTodos }) => {
 							Enter a todo task
 						</InputGroupText>
 						<Input
+							data-testid='todo-input'
 							id='todo-input'
 							name='todo'
 							onChange={inputHandler}
 							value={todoInputValue}
 							placeholder='some aim...'
 						></Input>
-						<Button className='button-style' color='info'>
+						<Button data-testid='create-todo-button' color='info'>
 							<i
 								className='fa-solid fa-plus'
 								style={{ fontSize: '20px', color: '#fff' }}
