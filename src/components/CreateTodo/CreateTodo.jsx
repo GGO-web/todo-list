@@ -25,13 +25,15 @@ const CreateTodo = ({ filteredTodos, setFilteredTodos, todos, setTodos }) => {
 	const formHandler = (e) => {
 		e.preventDefault();
 
-		setTodos([
-			...todos,
-			{ value: todoInputValue, completed: false, id: uuidv4() },
-		]);
+		if (todoInputValue.length >= 2) {
+			setTodos([
+				...todos,
+				{ value: todoInputValue, completed: false, id: uuidv4() },
+			]);
 
-		// clear input field
-		setTodoInputValue('');
+			// clear input field
+			setTodoInputValue('');
+		}
 	};
 
 	return (
