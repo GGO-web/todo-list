@@ -30,18 +30,20 @@ const GarbageTodos = ({ todos, setTodos, garbageTodos, setGarbageTodos }) => {
 
 			<Collapse isOpen={garbageIsOpen}>
 				<div className='garbage-list list-group gx-2'>
-					{garbageTodos.map((item) => {
-						return (
-							<GarbageTodo
-								key={uuidv4()}
-								todos={todos}
-								setTodos={setTodos}
-								garbageTodos={garbageTodos}
-								setGarbageTodos={setGarbageTodos}
-								todo={item}
-							></GarbageTodo>
-						);
-					})}
+					{garbageTodos.length
+						? garbageTodos.map((item) => {
+								return (
+									<GarbageTodo
+										key={uuidv4()}
+										todos={todos}
+										setTodos={setTodos}
+										garbageTodos={garbageTodos}
+										setGarbageTodos={setGarbageTodos}
+										todo={item}
+									></GarbageTodo>
+								);
+						  })
+						: 'Garbage List is empty'}
 				</div>
 			</Collapse>
 		</>
