@@ -71,11 +71,19 @@ const GarbageTodo = ({
 				onBlur={garbageTodoItemValidate}
 				className={todo.completed ? 'completed' : ''}
 			/>
-			<Button onClick={markTodoCompleted} color='primary'>
+			<Button
+				data-testid='garbage-mark-button'
+				onClick={markTodoCompleted}
+				color='primary'
+			>
 				<FontAwesomeIcon icon={faCheck} style={{ marginRight: '5px' }} />
 				Complete
 			</Button>
-			<Button color='light' onClick={restoreGarbageTodoItem}>
+			<Button
+				data-testid='garbage-restore-button'
+				color='light'
+				onClick={restoreGarbageTodoItem}
+			>
 				<FontAwesomeIcon icon={faUndo} style={{ marginRight: '5px' }} />
 				Restore
 			</Button>

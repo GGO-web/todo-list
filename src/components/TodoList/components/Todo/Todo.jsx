@@ -59,11 +59,19 @@ const Todo = ({ todos, setTodos, todo, garbageTodos, setGarbageTodos }) => {
 				onBlur={todoItemValidate}
 				className={todo.completed ? 'completed' : ''}
 			/>
-			<Button onClick={markTodoCompleted} color='primary'>
+			<Button
+				data-testid='todo-mark-button'
+				onClick={markTodoCompleted}
+				color='primary'
+			>
 				<FontAwesomeIcon icon={faCheck} style={{ marginRight: '5px' }} />
 				Complete
 			</Button>
-			<Button color='danger' onClick={removeTodoItem}>
+			<Button
+				data-testid='todo-remove-button'
+				color='danger'
+				onClick={removeTodoItem}
+			>
 				<FontAwesomeIcon icon={faTrash} style={{ marginRight: '5px' }} />
 				Remove
 			</Button>

@@ -2,17 +2,17 @@ import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import Todo from '../Todo';
+import GarbageTodo from '../GarbageTodo';
 
 it('should be able to change the value of todo', () => {
 	render(
-		<Todo
+		<GarbageTodo
 			todos={[]}
 			setTodos={jest.fn()}
 			todo={{ id: 'test id', value: 'testing', completed: false }}
 			garbageTodos={[]}
 			setGarbageTodos={jest.fn()}
-		></Todo>
+		></GarbageTodo>
 	);
 
 	expect(screen.getByRole('textbox')).toHaveValue('testing');
@@ -26,13 +26,15 @@ it('should be able to change the value of todo', () => {
 
 it('should don`t change the value of todo if the user clear entire text', () => {
 	render(
-		<Todo
-			todos={[{ id: 'test id', value: 'test todo', completed: false }]}
+		<GarbageTodo
+			todos={[]}
 			setTodos={jest.fn()}
 			todo={{ id: 'test id', value: 'test todo', completed: false }}
-			garbageTodos={[]}
+			garbageTodos={[
+				{ id: 'test id', value: 'test todo', completed: false },
+			]}
 			setGarbageTodos={jest.fn()}
-		></Todo>
+		></GarbageTodo>
 	);
 
 	fireEvent.change(screen.getByRole('textbox'), {
@@ -45,19 +47,19 @@ it('should don`t change the value of todo if the user clear entire text', () => 
 });
 
 it('should change the value of todo if the user clear a part of text', () => {
-	const mockedSetTodos = jest.fn();
+	const mockedSetGarbageTodos = jest.fn();
 
 	render(
-		<Todo
-			todos={[
+		<GarbageTodo
+			todos={[]}
+			setTodos={jest.fn()}
+			todo={{ id: 'test id #1', value: 'test todo #1', completed: false }}
+			garbageTodos={[
 				{ id: 'test id #1', value: 'test todo #1', completed: false },
 				{ id: 'test id #2', value: 'test todo #2', completed: false },
 			]}
-			setTodos={mockedSetTodos}
-			todo={{ id: 'test id #1', value: 'test todo #1', completed: false }}
-			garbageTodos={[]}
-			setGarbageTodos={jest.fn()}
-		></Todo>
+			setGarbageTodos={mockedSetGarbageTodos}
+		></GarbageTodo>
 	);
 
 	fireEvent.change(screen.getByRole('textbox'), {
@@ -67,54 +69,74 @@ it('should change the value of todo if the user clear a part of text', () => {
 	fireEvent.blur(screen.getByRole('textbox'));
 
 	expect(screen.getByRole('textbox')).toHaveValue('test to');
-	expect(mockedSetTodos).toHaveBeenCalledWith([
+	expect(mockedSetGarbageTodos).toHaveBeenCalledWith([
 		{ id: 'test id #1', value: 'test to', completed: false },
 		{ id: 'test id #2', value: 'test todo #2', completed: false },
 	]);
 });
 
 it('should mark as complete when a complete button is pressed', () => {
-	const mockedSetTodos = jest.fn();
+	const mockedSetGarbageTodos = jest.fn();
 
 	render(
-		<Todo
-			todos={[
+		<GarbageTodo
+			todos={[]}
+			setTodos={jest.fn()}
+			todo={{ id: 'test id #1', value: 'testing #1', completed: false }}
+			garbageTodos={[
 				{ id: 'test id #1', value: 'testing #1', completed: false },
 				{ id: 'test id #2', value: 'testing #2', completed: false },
 			]}
-			setTodos={mockedSetTodos}
-			todo={{ id: 'test id #1', value: 'testing #1', completed: false }}
-			garbageTodos={[]}
-			setGarbageTodos={jest.fn()}
-		></Todo>
+			setGarbageTodos={mockedSetGarbageTodos}
+		></GarbageTodo>
 	);
 
-	fireEvent.click(screen.getByTestId('todo-mark-button'));
+	fireEvent.click(screen.getByTestId('garbage-mark-button'));
 
-	expect(mockedSetTodos).toHaveBeenCalledWith([
+	expect(mockedSetGarbageTodos).toHaveBeenCalledWith([
 		{ id: 'test id #1', value: 'testing #1', completed: true },
 		{ id: 'test id #2', value: 'testing #2', completed: false },
 	]);
 });
 
-it('should remove item from TodoList and move it to GarbageTodos', () => {
+it('should filter GarbageTodos when a restore button is pressed', () => {
 	const mockedSetTodos = jest.fn();
 	const mockedSetGarbageTodos = jest.fn();
 
 	render(
-		<Todo
-			todos={[{ id: 'test id', value: 'testing', completed: false }]}
+		<GarbageTodo
+			todos={[]}
 			setTodos={mockedSetTodos}
 			todo={{ id: 'test id', value: 'testing', completed: false }}
-			garbageTodos={[]}
+			garbageTodos={[{ id: 'test id', value: 'testing', completed: false }]}
 			setGarbageTodos={mockedSetGarbageTodos}
-		></Todo>
+		></GarbageTodo>
 	);
 
-	fireEvent.click(screen.getByTestId('todo-remove-button'));
+	fireEvent.click(screen.getByTestId('garbage-restore-button'));
 
-	expect(mockedSetTodos).lastCalledWith([]);
-	expect(mockedSetGarbageTodos).toBeCalledWith([
+	expect(mockedSetTodos).toBeCalledWith([
 		{ id: 'test id', value: 'testing', completed: false },
 	]);
+	expect(mockedSetGarbageTodos).lastCalledWith([]);
+});
+
+it('should filter GarbageTodos when a remove button is pressed', () => {
+	const mockedSetTodos = jest.fn();
+	const mockedSetGarbageTodos = jest.fn();
+
+	render(
+		<GarbageTodo
+			todos={[]}
+			setTodos={mockedSetTodos}
+			todo={{ id: 'test id', value: 'testing', completed: false }}
+			garbageTodos={[{ id: 'test id', value: 'testing', completed: false }]}
+			setGarbageTodos={mockedSetGarbageTodos}
+		></GarbageTodo>
+	);
+
+	fireEvent.click(screen.getByText(/remove/i));
+
+	expect(mockedSetTodos).not.toBeCalled();
+	expect(mockedSetGarbageTodos).lastCalledWith([]);
 });

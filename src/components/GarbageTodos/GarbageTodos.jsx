@@ -22,6 +22,7 @@ const GarbageTodos = ({ todos, setTodos, garbageTodos, setGarbageTodos }) => {
 			>
 				Garbage Collection
 				<FontAwesomeIcon
+					data-testid='garbage-collapse-icon'
 					style={{ marginLeft: '5px' }}
 					className={garbageIsOpen ? 'active' : ''}
 					icon='fa-solid fa-chevron-down'
@@ -29,7 +30,10 @@ const GarbageTodos = ({ todos, setTodos, garbageTodos, setGarbageTodos }) => {
 			</Button>
 
 			<Collapse isOpen={garbageIsOpen}>
-				<div className='garbage-list list-group gx-2'>
+				<div
+					data-testid='garbage-list'
+					className='garbage-list list-group gx-2'
+				>
 					{garbageTodos.length
 						? garbageTodos.map((item) => {
 								return (
